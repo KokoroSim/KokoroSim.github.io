@@ -1,0 +1,15 @@
+{
+  "name": "ui",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "ui_bg.wasm",
+    "ui.js",
+    "ui.d.ts"
+  ],
+  "main": "ui.js",
+  "types": "ui.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}

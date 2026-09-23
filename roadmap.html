@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Roadmap de Desenvolvimento</title>
+    <meta name="title" content="Roadmap de Desenvolvimento">
+    <meta name="description" content="Simulador cardíaco open source de eletrofisiologia, dromotropismo e hemodinâmica com Rust e Wasm.">
+    <meta name="theme-color" content="#ff1754">
+
+    <!-- Open Graph / Facebook / WhatsApp / Telegram / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kokorosim.github.io/">
+    <meta property="og:site_name" content="KokoroSim">
+    <meta property="og:title" content="Roadmap de Desenvolvimento">
+    <meta property="og:description" content="Simulador cardíaco open source de eletrofisiologia, dromotropismo e hemodinâmica com Rust e Wasm.">
+    <meta property="og:image" content="https://kokorosim.github.io/assets/og_preview.png">
+    <meta property="og:image:secure_url" content="https://kokorosim.github.io/assets/og_preview.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="KokoroSim — Simulador Cardíaco Open Source: Eletrofisiológico, Dromotrópico e Hemodinâmico">
+
+    <!-- Twitter (X) Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kokorosim.github.io/">
+    <meta name="twitter:title" content="Roadmap de Desenvolvimento">
+    <meta name="twitter:description" content="Simulador cardíaco open source de eletrofisiologia, dromotropismo e hemodinâmica com Rust e Wasm.">
+    <meta name="twitter:image" content="https://kokorosim.github.io/assets/og_preview.png">
+    <meta name="twitter:image:alt" content="KokoroSim — Simulador Cardíaco Open Source: Eletrofisiológico, Dromotrópico e Hemodinâmico">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-main: #090a0f;
+            --bg-card: #10121a;
+            --border: #1c202d;
+            --border-tech: #2a3144;
+            --text-main: #e2e8f0;
+            --text-muted: #8493a8;
+            --neon-carmine: #ff1754;
+            --carmine-glow: rgba(255, 23, 84, 0.45);
+            --neon-cyan: #00f2fe;
+            --cyan-glow: rgba(0, 242, 254, 0.4);
+            --neon-amber: #ffd32a;
+            --neon-green: #05c46b;
+            --code-bg: #141724;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+            font-size: 16px;
+            padding-bottom: 60px;
+            background-image: 
+                linear-gradient(rgba(28, 32, 45, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(28, 32, 45, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        nav.top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(9, 10, 15, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--border-tech);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            max-width: 100%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: max-content;
+        }
+
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            min-height: 28px;
+            flex-shrink: 0;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px var(--carmine-glow));
+        }
+
+        .brand-kanji {
+            color: var(--neon-carmine);
+            text-shadow: 0 0 10px var(--carmine-glow);
+            font-weight: 900;
+            margin: 0 1px;
+        }
+
+        .brand-sim {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--cyan-glow);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border: 1px solid transparent;
+            clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+            border-color: var(--neon-cyan);
+            background: rgba(0, 242, 254, 0.12);
+            box-shadow: 0 0 12px var(--cyan-glow);
+            text-shadow: 0 0 6px var(--cyan-glow);
+        }
+
+        .nav-links a.btn-app {
+            background: linear-gradient(135deg, var(--neon-carmine), #d61346);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 7px 18px;
+            border: 1px solid #ff4d79;
+            box-shadow: 0 0 15px var(--carmine-glow);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links a.btn-app:hover {
+            background: linear-gradient(135deg, #ff4375, var(--neon-carmine));
+            box-shadow: 0 0 24px var(--neon-carmine);
+            transform: translateY(-1px);
+        }
+
+        main.doc-container {
+            max-width: 960px;
+            margin: 36px auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Chakra Petch', sans-serif;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            border-bottom: 2px solid var(--border-tech);
+            padding-bottom: 12px;
+            margin-top: 0.5em;
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--neon-carmine);
+            box-shadow: 0 0 8px var(--neon-carmine);
+        }
+
+        h1[align="center"] {
+            border-bottom: none;
+            padding-bottom: 0;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        h1[align="center"]::after {
+            display: none;
+        }
+
+        h2 {
+            font-size: 1.55rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.25);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--neon-amber);
+        }
+
+        h2 a[href="#indice"], h3 a[href="#indice"] {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            border-bottom: none;
+            margin-left: 8px;
+            opacity: 0.55;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        h2 a[href="#indice"]:hover, h3 a[href="#indice"]:hover {
+            color: var(--neon-cyan);
+            opacity: 1;
+            text-shadow: 0 0 8px var(--cyan-glow);
+        }
+
+        p {
+            margin-bottom: 1.1em;
+            color: var(--text-main);
+        }
+
+        a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: 0.2s;
+            border-bottom: 1px dotted rgba(0, 242, 254, 0.4);
+        }
+
+        a:hover {
+            color: #80fbff;
+            text-shadow: 0 0 8px var(--cyan-glow);
+            border-bottom-color: var(--neon-cyan);
+        }
+
+        ul, ol {
+            margin-bottom: 1.2em;
+            padding-left: 28px;
+        }
+
+        li {
+            margin-bottom: 0.4em;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-tech);
+            margin: 2.2em 0;
+            position: relative;
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border-tech);
+            border-left: 3px solid var(--neon-cyan);
+            border-radius: 4px;
+            padding: 16px;
+            overflow-x: auto;
+            margin-bottom: 1.4em;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffd32a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.8em 0;
+            background: var(--bg-card);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-tech);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        th, td {
+            padding: 11px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
+        }
+
+        th {
+            font-family: 'Chakra Petch', sans-serif;
+            background: rgba(28, 32, 45, 0.6);
+            color: var(--neon-cyan);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        tr:hover {
+            background: rgba(0, 242, 254, 0.03);
+        }
+
+        blockquote {
+            border-left: 3px solid var(--neon-carmine);
+            background: rgba(255, 23, 84, 0.06);
+            padding: 14px 18px;
+            margin: 1.4em 0;
+            border-radius: 0 4px 4px 0;
+            color: var(--text-main);
+            box-shadow: inset 0 0 12px rgba(255, 23, 84, 0.04);
+        }
+
+        footer {
+            max-width: 960px;
+            margin: 60px auto 0 auto;
+            padding: 24px 20px 0 20px;
+            border-top: 1px solid var(--border-tech);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        footer p {
+            margin-bottom: 6px;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-tech);
+            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.25s ease;
+            z-index: 102;
+            flex-shrink: 0;
+        }
+
+        .nav-toggle:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        .hamburger-bar {
+            width: 22px;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: all 0.25s ease-in-out;
+            box-shadow: 0 0 4px var(--cyan-glow);
+            border-radius: 1px;
+            display: block;
+        }
+
+        .nav-toggle.open .hamburger-bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-toggle.open .hamburger-bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .nav-toggle.open .hamburger-bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(9, 11, 18, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 2px solid var(--border-tech);
+                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.85);
+                padding: 16px 24px 24px 24px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                max-height: calc(100vh - 65px);
+                overflow-y: auto;
+                z-index: 101;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                font-size: 1rem;
+                clip-path: none;
+                border-radius: 4px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links a.btn-app {
+                clip-path: none;
+                border-radius: 4px;
+                margin-bottom: 4px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .top-nav {
+                padding: 10px 16px;
+            }
+            .brand {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="./index.html" class="brand">
+            <img src="assets/icon.png" alt="KokoroSim" class="brand-logo">
+            <span>kokor<span class="brand-kanji">心</span><span class="brand-sim">sim</span></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="./app.html" class="btn-app">🚀 Simulador Web</a>
+            <a href="./index.html" class="">📖 Sobre</a>
+            <a href="./roteiro.html" class="">🎓 Roteiro Prático</a>
+            <a href="https://github.com/KokoroSim/KokoroSim" target="_blank">💻 GitHub</a>
+        </div>
+    </nav>
+    <main class="doc-container">
+        <h1 id="roadmap-de-desenvolvimento">Roadmap de Desenvolvimento</h1>
+<p>O desenvolvimento do <strong>KokoroSim</strong> está organizado em grandes marcos arquiteturais e eletrofisiológicos. </p>
+<hr />
+<h2 id="kokorosim-v20-marco-eletrofisiologico-e-hemodinamico-em-rust-wasm-concluido">🚀 KokoroSim v2.0 (Marco Eletrofisiológico e Hemodinâmico em Rust + WASM) ✅ CONCLUÍDO</h2>
+<h3 id="fase-1-transicao-arquitetural-rust-wasm-dioxus-concluido">Fase 1: Transição Arquitetural (Rust + WASM + Dioxus) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Migração de todo o motor matemático de equações diferenciais para <strong>Rust nativo</strong>.</li>
+<li>[x] Compilação do motor para <strong>WebAssembly (WASM)</strong> com otimizações de alto rendimento.</li>
+<li>[x] Reescrever a interface de usuário reativa utilizando <strong>Dioxus 0.6</strong> e Signals.</li>
+<li>[x] Pipeline de execução em lote (<code>run_batch</code>) com amostragem direta em memória compartilhada WASM.</li>
+<li>[x] Ambiente de desenvolvimento local (<code>run_local.sh</code>) com monitoramento de arquivos, livereload, debounce e compilação concorrente assíncrona.</li>
+</ul>
+<h3 id="fase-2-conducao-fisiologica-por-corrente-e-fibras-de-purkinje-concluido">Fase 2: Condução Fisiológica por Corrente e Fibras de Purkinje ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Eliminação da assincronia e marcapasso parasita ventricular (remoção do timer rígido de 1000 ms).</li>
+<li>[x] Substituição de grampeamentos de voltagem por <strong>injeção transitória de corrente despolarizante</strong> ($I_{stim}$).</li>
+<li>[x] Transposição do modelo biofísico de <strong>Stewart et al. (2009)</strong> para a célula de Purkinje humana (20 variáveis de estado, integração em ms, canais $I_f$, $I_{to}$, $I_{sus}$).</li>
+<li>[x] Acoplamento da cadeia completa: Nó SA $\to$ Átrio $\to$ Nó AV $\to$ Purkinje / His $\to$ Ventrículo.</li>
+<li>[x] Automatismo terciário de escape idioventricular (~30 BPM) em caso de bloqueio atrioventricular.</li>
+</ul>
+<h3 id="fase-3-heterogeneidade-transmural-ventricular-e-ecg-dipolar-concluido">Fase 3: Heterogeneidade Transmural Ventricular e ECG Dipolar ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Implementação dos 3 subtipos ventriculares de <strong>ten Tusscher &amp; Panfilov (2006)</strong>:</li>
+<li><strong>Endocárdio (Subendocárdio):</strong> $G_{to}$ baixo ($0.073$), platô arredondado, ativado primeiro via Purkinje.</li>
+<li><strong>Célula M (Mid-miocárdio):</strong> $G_{Ks}$ reduzido ($0.098$), platô estendido, substrato para dispersão do QT.</li>
+<li><strong>Epicárdio (Subepicárdico):</strong> $G_{to}$ robusto ($0.294$), entalhe proeminente na Fase 1, APD curto, repolariza primeiro.</li>
+<li>[x] Condução transmural intramiocárdica com velocidade finita (Endo $\to$ M-cell em ~6ms $\to$ Epicárdio em ~12ms).</li>
+<li>[x] Gênese biofísica do <strong>Eletrocardiograma (ECG)</strong> a partir do gradiente dipolar de campo distante:
+  $$\text{ECG}(t) = 0.15 \cdot V_{atrio} + 0.55 \cdot (V_{endo} - V_{epi}) + 0.25 \cdot (V_M - V_{epi})$$
+  gerando organicamente a <strong>Onda P</strong>, o <strong>Complexo QRS escarpado</strong> e a <strong>Onda T POSITIVA e fisiológica</strong>.</li>
+</ul>
+<h3 id="fase-4-dromotropismo-dinamico-e-conducao-decremental-no-no-av-concluido">Fase 4: Dromotropismo Dinâmico e Condução Decremental no Nó AV ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Eliminação de atrasos nodais estáticos.</li>
+<li>[x] Implementação da <strong>condução decremental frequência-dependente</strong> (aumento do retardo sob taquicardia devido à cinética de recuperação do $I_{Ca,L}$).</li>
+<li>[x] Modulação autonômica do atraso nodal: simpático encurta o PR (dromotropismo +); vagal alarga o PR (dromotropismo -).</li>
+<li>[x] Sensibilidade a bloqueadores de cálcio (Verapamil) e isquemia, induzindo Bloqueios AV de 1º, 2º e 3º grau com escape terciário de Purkinje.</li>
+</ul>
+<h3 id="fase-5-fibroblastos-cardiacos-e-acoplamento-eletrotonico-maccannell-et-al-2007-concluido">Fase 5: Fibroblastos Cardíacos e Acoplamento Eletrotônico (MacCannell et al., 2007) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Implementação do modelo biofísico do <strong>Fibroblasto Cardíaco Humano</strong> (MacCannell et al., 2007) com $C_f = 6.3\text{ pF}$, canais $I_{Kv}$, $I_{K1}$, $I_b$ e bomba eletrogênica $I_{NaK}$.</li>
+<li>[x] Acoplamento eletrotônico miócito-fibroblasto via junções comunicantes ($I_{gap}$ bidirecional) com condutância $G_{gap} = \text{fibrose} \times 4.0\text{ nS}$.</li>
+<li>[x] Simulação de dreno capacitivo, despolarização parcial diastólica do miócito (inativação de $I_{Na}$ em repouso) e lentificação da condução intramiocárdica proporcional à fibrose.</li>
+<li>[x] Visualização no osciloscópio de Potencial de Ação com canal lilás (<code>#a29bfe</code>) e slider de controle de Fibrose Miocárdica (0% a 100%).</li>
+</ul>
+<h3 id="fase-6-acoplamento-eletromecanico-hemodinamica-e-audio-wiggers-concluido">Fase 6: Acoplamento Eletromecânico, Hemodinâmica e Áudio (Wiggers) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Acoplamento Excitação-Contração via cinemática cooperativa de ligação de Cálcio na Troponina C.</li>
+<li>[x] Modelo de <strong>Elastância Ventricular Variável no Tempo ($E(t)$)</strong> de Suga &amp; Sagawa para calcular a Pressão Ventricular Esquerda ($LVP$).</li>
+<li>[x] Acoplamento hidráulico com modelo arterial <strong>Windkessel de 3 elementos</strong> para calcular a Pressão Aórtica ($AoP$) com incisura dicrótica.</li>
+<li>[x] Dinâmica valvar das cúspides mitral e aórtica acionadas por gradientes pressóricos instantâneos.</li>
+<li>[x] <strong>Síntese de Áudio Biofísico via Web Audio API</strong>:</li>
+<li><code>🔊 Bip de Monitor (UTI)</code> acoplado à detecção de onda R (880 Hz).</li>
+<li><code>🩺 Ausculta de Bulhas (B1 / B2)</code> acoplada ao fechamento das valvas mitral e aórtica.</li>
+<li>[x] Compressão horizontal do traçado (janela de 2.5s com capacidade de 500 amostras, comportando &gt; 3 ciclos completos).</li>
+</ul>
+<h3 id="fase-7-otimizacao-numerica-hibrida-rush-larsen-e-acessibilidade-universal-mobilelow-end-concluido">Fase 7: Otimização Numérica Híbrida (Rush-Larsen) e Acessibilidade Universal (Mobile/Low-End) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Diagnóstico e resolução do gargalo de rigidez numérica (<em>stiffness</em>) dos canais rápidos de sódio ($m$).</li>
+<li>[x] Integração analítica exata <strong>Rush-Larsen</strong> para todos os portões de condutância iônica em Ventrículo (ten Tusscher 2006), Purkinje (Stewart 2009) e Átrio (Courtemanche 1998).</li>
+<li>[x] Elevação do passo de integração para $dt = 0.01\text{ ms}$ com 100% de estabilidade e redução de 10x no orçamento de cálculo (1.600 passos por quadro de 16 ms a 60 FPS).</li>
+<li>[x] Execução em <strong>1x tempo real garantida</strong> com consumo de CPU mínimo (<strong>&lt; 5-10%</strong>) em smartphones, tablets, Chromebooks e computadores de baixo custo.</li>
+<li>[x] Recalibração acústica das bulhas B1 e B2 com <em>pitch sweeps</em> (140 $\to$ 85 Hz e 240 $\to$ 160 Hz) e ganho otimizado para microtransdutores de celulares e laptops.</li>
+<li>[x] Formalização do requisito não-funcional de acessibilidade e computação inclusiva no <code>./arquitetura.html</code>.</li>
+</ul>
+<h3 id="fase-8-modos-de-exibicao-do-osciloscopio-gatilho-biofisico-e-onda-fantasma-concluido">Fase 8: Modos de Exibição do Osciloscópio, Gatilho Biofísico e Onda Fantasma ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] Implementação dos <strong>5 modos de exibição temporal</strong>: Fita Deslizante (Padrão), Varredura Contínua (Monitor UTI com barra apagadora), Paginação Sincronizada (Triggered Paged), Gatilho Automático (Auto-Trigger por batimento) e Gatilho Único (Single-Shot congelado).</li>
+<li>[x] Detecção no motor e sincronização biofísica da varredura temporal pela <strong>Fase 0 do Nó Sinoatrial</strong> (marcapasso primário), preservando a sequência anatômica estrita (SA $\to$ P $\to$ PR $\to$ QRS $\to$ T).</li>
+<li>[x] Botão <code>⚡ DISPARAR / ARMAR PRÓXIMO CICLO</code> para captura e congelamento de 1 batimento no modo Single-Shot.</li>
+<li>[x] <strong>Onda Fantasma Bio-Sincronizada (Ciclo Fechado $RR$ na Fase 0 do Nó SA)</strong>: captura precisa de 1 batimento basal completo, suporte fisiológico a espaçamento (bradicardia com repouso em $V_{rest}$) e encurtamento (taquicardia com reinício imediato), re-ancoragem em tempo real na fita deslizante e renderização sólida esmaecida (1.2px, <code>rgba(..., 0.35)</code>) anti-fadiga visual para neurodivergentes (zero <em>marching ants</em>).</li>
+<li>[x] <strong>Higienização de Memória e Reset Limpo</strong>: inicialização e apagamento de buffers com sentinelas <code>NaN</code> nos modos de varredura e gatilho automático, eliminando qualquer rastro residual de ciclos anteriores.</li>
+<li>[x] <strong>Controle de Pausa / Congelamento da Simulação</strong>: botão <code>[ ⏸ CONGELAR ]</code> / <code>[ ▶ CONTINUAR ]</code> no cabeçalho da barra lateral, permitindo suspender o cálculo biológico e o áudio instantaneamente para inspeção estática.</li>
+<li>[x] <strong>Marcadores Visuais Acústicos Multicanal</strong>: linhas verticais correspondentes desenhadas simultaneamente em todos os 4 canais (amarelo tracejado para Onda R/UTI, verde para B1 e coral para B2).</li>
+</ul>
+<hr />
+<h2 id="proximos-passos-kokorosim-v21">🔬 Próximos Passos (KokoroSim v2.1+)</h2>
+<h3 id="fase-9-modernizacao-de-infraestrutura-e-qualidade-de-software-rust-2024-dioxus-07">Fase 9: Modernização de Infraestrutura e Qualidade de Software (Rust 2024 &amp; Dioxus 0.7)</h3>
+<ul>
+<li>[ ] <strong>Migração para Rust Edition 2024</strong>: Adoção das novas convenções de compilação, closures assíncronas otimizadas e lifetimes estritos para WebAssembly.</li>
+<li>[ ] <strong>Atualização para Dioxus 0.7</strong>: Transição para o novo reconciliador de Virtual DOM e reatividade avançada de Signals, reduzindo o overhead de renderização do osciloscópio.</li>
+<li>[x] <strong>Harness de Testes Automatizados E2E e Wasm</strong>:</li>
+<li>[x] Testes unitários do motor numérico em Rust nativo e Wasm (validação de invariantes matemáticas, estabilidade de $V_m$, ausência de <code>NaN</code>, resiliência e não-congelamento sob espectro extremo de parâmetros).</li>
+<li>[x] Suíte de testes de interface end-to-end com Playwright em modo headless e worker único: validação de inicialização WASM, 4 canais de osciloscópio, congelamento/pausa, captura da Onda Fantasma bio-sincronizada, disparo Single-Shot, reset de parâmetros, 3 camadas padrão ativas e legendas humanizadas.</li>
+<li>[x] Testes de regressão biofísica e roteiro prático universitário: verificação programática dos 4 experimentos clínicos (Nernst e hipercalemia, dromotropismo e BAVT com Verapamil, modulação simpático/vagal com Wiggers, e acoplamento heterocelular com fibroblastos).</li>
+</ul>
+<h3 id="fase-10-osciloscopio-modular-calibracao-eletrocardiografica-padrao-livro-texto-e-grade-isotropica">Fase 10: Osciloscópio Modular, Calibração Eletrocardiográfica (Padrão Livro-Texto) e Grade Isotrópica</h3>
+<ul>
+<li>[ ] <strong>Canais Modulares com Dropdown Dupla em Cascata</strong>:</li>
+<li>Implementação de seletor duplo no cabeçalho de cada um dos 4 osciloscópios (<code>CH-01</code> a <code>CH-04</code>), tornando todos os canais 100% dinâmicos e intercambiáveis.</li>
+<li><strong>1ª Dropdown (Domínio Fisiológico)</strong>: <code>Potenciais de Ação</code>, <code>Eletrocardiograma (ECG)</code>, <code>Cinética Iônica e Transportadores</code>, <code>Hemodinâmica (Wiggers &amp; Alça PxV)</code>, <code>Espirometria e Mecânica Respiratória</code>.</li>
+<li><strong>2ª Dropdown (Visão ou Derivação Contextual)</strong>: Ajusta-se dinamicamente conforme o domínio selecionado na primeira.</li>
+<li>[ ] <strong>Recalibração do ECG (Morfologia Clássica de Livro-Texto)</strong>:</li>
+<li>Resolução da distorção do traçado da v2 (onde a diferença direta $V_{endo} - V_{epi}$ produzia ruído e ausência de morfologia escarpada realista).</li>
+<li>Reintrodução da síntese biofísica espaço-temporal calibrada (como no modelo consagrado da v1):<ul>
+<li><strong>Onda P</strong>: Deflexão atrial suave, arredondada e com duração fisiológica (~80 ms).</li>
+<li><strong>Complexo QRS</strong>: Deflexão ventricular afiada, escarpada e bifásica/trifásica (ondas Q, R e S nítidas com largura &lt; 120 ms modulada por bloqueadores de sódio).</li>
+<li><strong>Onda T ("Morrinho")</strong>: Repolarização suave, positiva e assimétrica modulada por potássio e bloqueadores de $I_K$.</li>
+</ul>
+</li>
+<li>[ ] <strong>Grade Biomédica Proporcional do ECG (Isotrópica 40 ms × 0.1 mV)</strong>:</li>
+<li>Mapeamento matemático em pixels preservando a proporção 1:1 rigorosa do papel milimetrado de ECG:<ul>
+<li><strong>Quadradinhos pequenos</strong>: $40\text{ ms}$ (horizontal) $\times$ $0.1\text{ mV}$ (vertical).</li>
+<li><strong>Quadradões grandes</strong>: $200\text{ ms}$ ($5\text{ quadradinhos}$) $\times$ $0.5\text{ mV}$ ($5\text{ quadradinhos}$).</li>
+<li>Garantia de que 1 quadradinho no Canvas seja visualmente um quadrado perfeito, permitindo diagnóstico imediato por contagem visual de quadradinhos (PR em 3–5 quadradinhos, QRS &lt; 3 quadradinhos, R com 10 quadradinhos de altura).</li>
+<li>Toggle de ganho rápido: padrão <strong>$1N$ ($10\text{ mm/mV}$)</strong> e <strong>$2N$ ($20\text{ mm/mV}$)</strong>.</li>
+</ul>
+</li>
+<li>[ ] <strong>ECG de 12 Derivações Clínicas</strong>:</li>
+<li>Projeção tridimensional do dipolo cardíaco nas derivações periféricas de Einthoven/Goldberger (<strong>DI, DII, DIII, aVR, aVL, aVF</strong>) e precordiais horizontais (<strong>V1 a V6</strong>).</li>
+<li>Modo Vetorcardiograma 2D ($DI \times aVF$) traçando o loop elétrico frontal instantâneo e o cálculo do Eixo Elétrico Cardíaco em graus.</li>
+<li>[ ] <strong>Escalas Metrológicas Dinâmicas em Todos os Gráficos</strong>:</li>
+<li>Indicação numérica visual contínua dos eixos em cada canal: <strong>Topo (Valor Máximo $Y_{max}$)</strong>, <strong>Centro (Valor Médio / Zero $Y_{mid}$)</strong> e <strong>Base (Valor Mínimo $Y_{min}$)</strong> acompanhados das respectivas unidades de engenharia biomédica ($mV$, $mmHg$, $L$, $L/s$, $\mu M$).</li>
+</ul>
+<h3 id="fase-11-transparencia-ionica-celular-e-reestruturacao-das-sanfonas">Fase 11: Transparência Iônica Celular e Reestruturação das Sanfonas</h3>
+<ul>
+<li>[ ] <strong>Origem e Identificação da Célula na Cinética Iônica</strong>:</li>
+<li>Discriminação explícita de <strong>qual célula</strong> está sendo inspecionada dentre os 7 subtipos simulados (Nó SA, Músculo Atrial, Nó AV, Fibras de Purkinje, Endocárdio, Célula M, Epicárdio ou Fibroblasto).</li>
+<li>Seletor de célula e correntes na 2ª dropdown do canal iônico (ex: inspecionar o influxo de cálcio no <em>Nó SA</em> via canais T e L vs. <em>Epicárdio Ventricular</em> via RyR e SERCA).</li>
+<li>[ ] <strong>Desacoplamento e Reestruturação das Sanfonas do Menu Esquerdo</strong>:</li>
+<li><strong>Sanfona 0</strong>: Dedicada exclusivamente aos modos de osciloscópio (rolling, sweep, paged, single-shot) e às ferramentas de captura da Onda Fantasma.</li>
+<li><strong>Nova Sanfona (Células &amp; Camadas Ativas)</strong>: Controle independente de quais subtipos celulares estão ativos no CH-01 de potenciais de ação.</li>
+<li><strong>Nova Sanfona (Canais Iônicos &amp; Cinética)</strong>: Checkboxes coloridos para habilitar correntes individuais ($I_{Na}$, $I_{Ca,L}$, $I_f$, $I_{Kr}$, $I_{Ks}$, $I_{K1}$, $[Ca^{2+}]_{SR}$).</li>
+<li><strong>Nova Sanfona (Mecânica Respiratória &amp; Espirometria)</strong>: Controles ventilatórios e disparos de manobras pulmonares.</li>
+</ul>
+<h3 id="fase-12-mecanica-respiratoria-espirometria-e-acoplamento-cardiorrespiratorio-pulmo-lab-concluido">Fase 12: Mecânica Respiratória, Espirometria e Acoplamento Cardiorrespiratório (Pulmo Lab) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] <strong>Modelagem Matemática de Volumes e Capacidades Pulmonares Estáticos e Dinâmicos</strong>:</li>
+<li><strong>Volume Corrente ($V_T$ ~500 mL)</strong>: Volume ventilado na respiração tranquila de repouso.</li>
+<li><strong>Volume de Reserva Inspiratório ($VRI$ ~3.000 mL)</strong>: Volume máximo adicional inspirado pós-eupneia.</li>
+<li><strong>Volume de Reserva Expiratório ($VRE$ ~1.100 mL)</strong>: Volume máximo expelido pós-expiração normal.</li>
+<li><strong>Volume Residual ($VR$ ~1.200 mL — <em>o ar que fica</em>)</strong>: Volume de gás que permanece obrigatoriamente retido nos alvéolos mesmo após expiração forçada máxima, impedindo o colapso pulmonar.</li>
+<li>Cálculo contínuo das capacidades:<ul>
+<li><strong>Capacidade Vital Forçada ($CVF = V_T + VRI + VRE$ ~4.600 mL)</strong></li>
+<li><strong>Capacidade Residual Funcional ($CRF = VRE + VR$ ~2.300 mL — repouso elástico torácico)</strong></li>
+<li><strong>Capacidade Pulmonar Total ($CPT = CVF + VR$ ~5.800 mL)</strong></li>
+</ul>
+</li>
+<li>[x] <strong>Manobra de Espirometria Forçada e Gráficos Respiratórios</strong>:</li>
+<li>Botão de disparo animado <code>[ 💨 INICIAR MANOBRA DE ESPIROMETRIA ]</code> no menu lateral do Pulmo Lab.</li>
+<li><strong>Espirograma Dinâmico ($V \times t$)</strong>: Curva contínua de volume no tempo com mensuração automática de <strong>$VEF_1$</strong> (Volume Expiratório Forçado no 1º segundo) e do <strong>Índice de Tiffeneau</strong> ($VEF_1 / CVF$, ~82.6% fisiológico).</li>
+<li><strong>Fluxo Aéreo Instantâneo ($\dot{V} \times t$)</strong>: Traçado com identificação do Pico de Fluxo Expiratório (PEF) e padrão diagnóstico morfológico de distúrbios obstrutivos (asma/DPOC com concavidade expiratória) e restritivos.</li>
+<li><strong>Laudo Funcional Automatizado</strong>: Diagnóstico em tempo real diferenciando padrões normais, obstrutivos e suspeita de restritivos.</li>
+<li>[x] <strong>Acoplamento Cardiorrespiratório e Pressão Pleural</strong>:</li>
+<li>Dinâmica da <strong>Pressão Intrapleural ($P_{pl}$)</strong> oscilando entre $-8\text{ cmH}_2\text{O}$ e $-5\text{ cmH}_2\text{O}$ em repouso e até $+30\text{ cmH}_2\text{O}$ na manobra forçada.</li>
+<li><strong>Arritmia Sinusal Respiratória (RSA)</strong>: Modulação autonômica do Nó Sinoatrial (Severi) pela respiração (taquicardia transitória na inspiração por inibição vagal; bradicardia na expiração por eferência parassimpática).</li>
+<li><strong>Recalibração Fisiológica de Longo Prazo da RSA</strong>: Atenuação do ganho vagal excessivo e balanceamento simpático-vagal ($\Delta FC \approx \pm 3\text{--}5\text{ BPM}$), eliminando a bradicardia progressiva e o colapso pressórico aórtico em repouso prolongado.</li>
+<li><strong>Harness de Validação e Baseline de Longo Prazo (300s)</strong>: Teste automatizado sob demanda (<code>long_baseline_300s.rs</code>) certificando 5 minutos ininterruptos de estabilidade hemodinâmica eutrófica (PA 122/71 mmHg, 412 batimentos, FE 51–58%, sem colapso por bradicardia).</li>
+<li><strong>Controle Didático no Cardio Lab</strong>: Inclusão de toggle independente de RSA na sanfona de monitorização do Cardio Lab para comparação direta imediata.</li>
+<li><strong>Monitor Cardíaco no Pulmo Lab</strong>: Telemetria contínua de Frequência Cardíaca ($FC$) e Débito Cardíaco ($DC$) no HUD do Pulmo Lab para feedback cardiovascular durante manobras ventilatórias.</li>
+<li>[x] <strong>Arquitetura de Abas Especializadas (<code>.lab-tabs</code>)</strong>:</li>
+<li>Divisão da interface em dois grandes espaços de trabalho (<code>💓 CARDIO LAB</code> e <code>🫁 PULMO LAB</code>) sem perda de continuidade do motor biofísico em segundo plano a 60 FPS.</li>
+</ul>
+<h3 id="fase-13-hemodinamica-avancada-ciclo-de-wiggers-e-alca-pressao-volume-p-times-v-concluido">Fase 13: Hemodinâmica Avançada, Ciclo de Wiggers e Alça Pressão-Volume ($P \times V$) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] <strong>Diagrama de Wiggers Completo e Alça Pressão-Volume ($P \times V$)</strong>:</li>
+<li>[x] Cálculo contínuo de volumes ventriculares: Volume Diastólico Final (VDF), Volume Sistólico Final (VSF), Volume Sistólico e Fração de Ejeção ($FE = VS / VDF$).</li>
+<li>[x] Novo traçado bidimensional em plano de fase exibindo a alça $P \times V$ dinâmica em tempo real (resposta direta à contratilidade via ESPVR, complacência via EDPVR, pré-carga e pós-carga).</li>
+<li>[x] Refinamento da rotulagem clínica do osciloscópio 2D para <code>CH-PV [ 圧力-容積ループ // ALÇA PRESSÃO-VOLUME DO VE ]</code> com discriminação visual de eixos ($mmHg \times mL$) e fases do ciclo.</li>
+<li>[x] <strong>Mecânica e Pressão Atrial</strong>: Ondas <em>a</em> (contração atrial ativa pós-onda P), <em>c</em> (abaulamento isovolumétrico da mitral) e <em>v</em> com descenso <em>y</em> (enchimento sistólico passivo e esvaziamento diastólico).</li>
+<li>[x] <strong>Patologias Valvares e Desafios Hemodinâmicos</strong>:</li>
+<li>Modelagem de Estenose Aórtica (gradiente transvalvar sistólico patológico &gt; 40 mmHg e sobrecarga pressórica com efeito Anrep).</li>
+<li>Insuficiência Aórtica (regurgitação diastólica com colapso de pressão aórtica diastólica &lt; 50 mmHg e sobrecarga volumétrica).</li>
+<li>Estenose Mitral (hipertensão atrial esquerda &gt; 18 mmHg por retardo de esvaziamento diastólico).</li>
+<li>Insuficiência Mitral (regurgitação sistólica ventrículo-atrial gerando onda v patológica gigante &gt; 25 mmHg).</li>
+<li>[x] <strong>Controles Clínicos e Telemetria Sistólica na Interface</strong>:</li>
+<li>Nova sanfona no Cardio Lab (<code>8. 弁膜症 // Valvopatias &amp; Dinâmica Valvar</code>) com sliders contínuos de Estenose Aórtica, Insuficiência Aórtica, Estenose Mitral e Insuficiência Mitral.</li>
+<li>Telemetria no HUD com Fração de Ejeção ($FE$), Volume Sistólico ($VS$) e Débito Cardíaco ($DC$) atualizados ciclo a ciclo.</li>
+<li>[x] <strong>Validação e Suíte de Testes E2E (Playwright)</strong>:</li>
+<li>10 cenários automatizados cobrindo Wiggers, alça $P \times V$, estabilidade hemodinâmica sob valvopatias e persistência em segundo plano.</li>
+</ul>
+<h3 id="fase-131-acoplamento-sistemico-de-guyton-retorno-venoso-e-resposta-a-ortostase-med-7002-issue-2-concluido">Fase 13.1: Acoplamento Sistêmico de Guyton, Retorno Venoso e Resposta à Ortostase (MED-7002 / Issue #2) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] <strong>Modelo de Retorno Venoso de Arthur Guyton</strong>:</li>
+<li>Equação fundamental de acoplamento sistêmico: $RV = (PMES - PVC) / R_{rv}$.</li>
+<li>Dinâmica contínua de conservação de massa para a Pressão Venosa Central: $\frac{d(PVC)}{dt} = \frac{RV - DC}{C_{venous}}$, estabelecendo convergência estável no ponto de equilíbrio $RV = DC$.</li>
+<li>Acoplamento biofísico de pré-carga atrial esquerda ($p_{la_base}$) derivado de $PVC$ e volume circulante efetivo.</li>
+<li>[x] <strong>Desafio Postural e Resposta à Ortostase (Tilt)</strong>:</li>
+<li>Represamento venoso gravitacional esplâncnico e de membros inferiores (~$32\%$ de redução de $PMES$ e aumento de resistência ao retorno venoso $R_{rv}$).</li>
+<li>Gradiente de coluna hidrostática carotídea ($\Delta P \approx 18\text{ mmHg}$) descarregando imediatamente os barorreceptores do seio carotídeo antes da queda aórtica.</li>
+<li>Resposta compensatória fisiológica de malha fechada via barorreflexo (taquicardia reflexa, vasoconstrição venosa e arteriolar via $\alpha_1$, manutenção de $PAM$).</li>
+<li>[x] <strong>Diagrama de Guyton Bidimensional (Frank-Starling vs. Retorno Venoso)</strong>:</li>
+<li>Novo traçador <code>GuytonPlotter</code> renderizando o clássico plano cartesiano $Fluxo \times PVC$ ($0\text{ a }12\text{ L/min} \times -2\text{ a }14\text{ mmHg}$).</li>
+<li>Curva de Função Cardíaca (Frank-Starling em ciano <code>#00f2fe</code>) com sensibilidade inotrópica $\beta_1$ e platô de ejeção máxima.</li>
+<li>Curva Vascular de Retorno Venoso (em âmbar <code>#fdcb6e</code>) com declive $-1/R_{rv}$, intercepto no eixo X em $PVC = PMES$ e platô de colapso venoso em $PVC &lt; 0\text{ mmHg}$ (<em>Guyton waterfall</em>).</li>
+<li>Traçado fantasma de referência basal ($PMES = 7.5\text{ mmHg}$, $R_{rv} = 0.85$, $inotropy = 1.0$) desenhado em tracejado sutil quando há intervenções ativas.</li>
+<li>Ponto de Equilíbrio Operacional dinâmico (marcador verde luminoso pulsante <code>#2ecc71</code>) com coordenadas instantâneas $(\text{PVC}, \text{DC})$.</li>
+<li>[x] <strong>Controles Clínicos e Comutação 2D no Simulador Web</strong>:</li>
+<li>Nova sanfona no Cardio Lab (<code>9. 循環平衡 // Retorno Venoso &amp; Guyton</code>) com checkbox <code>🚶 Ortostase (Em Pé / Tilt)</code>, slider contínuo de volemia <code>Volemia (PMES)</code> ($1.0$ a $15.0\text{ mmHg}$) e botão de atalho rápido para exibição do Diagrama de Guyton.</li>
+<li>Seletor de modo no canal 2D inferior direito (<code>CH-2D</code>): alternância instantânea entre <code>圧力-容積 // Alça P×V (VE)</code> e <code>循環平衡 // Guyton (DC × RV)</code>.</li>
+<li>Novos pods de telemetria no HUD do Cardio Lab: Pressão Venosa Central (<code>PVC</code>) e Pressão Média de Enchimento Sistêmico (<code>PMES</code>).</li>
+<li>[x] <strong>Harness de Testes Automatizados</strong>:</li>
+<li>4 testes de integração em Rust (<code>guyton_and_orthostasis.rs</code>): equilíbrio normovolêmico, desafio ortostático com taquicardia reflexa, choque hipovolêmico/hemorragia e expansão volêmica.</li>
+<li>Suíte Playwright E2E expandida para 12 testes, validando controles de sanfona, telemetria no HUD, comutação bidimensional entre Alça PxV e Diagrama de Guyton e persistência.</li>
+</ul>
+<h3 id="fase-132-dinamica-capilar-equilibrio-de-starling-microvascular-e-genese-de-edema-med-7002-issue-2-bloco-c-concluido">Fase 13.2: Dinâmica Capilar, Equilíbrio de Starling Microvascular e Gênese de Edema (MED-7002 / Issue #2 - Bloco C) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] <strong>Equação de Starling e Dinâmica Transendotelial</strong>:</li>
+<li>Filtração capilar líquida: $J_v = K_f \cdot [(P_c - P_i) - \sigma (\pi_c - \pi_i)]$.</li>
+<li>Calibração fisiológica de Pressão Coloidosmótica de Landis-Pappenheimer para Albumina sérica humana: $\pi_c = 4.0 \cdot Alb + 0.60 \cdot Alb^2 + 0.03 \cdot Alb^3$ ($Alb=4.0\text{ g/dL} \implies \pi_c=27.5\text{ mmHg}$).</li>
+<li>Filtro e Capacidade de Compensação Linfática (<em>Lymphatic Safety Factor</em>): drenagem adaptativa que impede acúmulo intersticial enquanto a taxa de filtração permanecer abaixo do limiar de segurança linfática.</li>
+<li>[x] <strong>Microcirculação Pulmonar e Edema Cardiogênico vs. Permeabilidade (SDRA / ARDS)</strong>:</li>
+<li>Acoplamento hemodinâmico direto da Pressão Capilar Pulmonar à Pressão Atrial Esquerda: $P_{cp} = 0.85 \cdot P_{la} + 3.0\text{ mmHg}$.</li>
+<li>Edema cardiogênico induzido por Estenose Mitral ou falência de VE ($P_{la} &gt; 18\text{ mmHg} \implies P_{cp} &gt; 18-20\text{ mmHg}$).</li>
+<li>Edema inflamatório por lesão endotelial e colapso do coeficiente de reflexão de Staverman ($\sigma \to 0.45$, $K_f \uparrow$ em sepse/SDRA).</li>
+<li>Consequência mecânica ventilatória: rigidez tecidual pulmonar proporcional ao líquido alveolar com decaimento da complacência efetiva ($C_{rs}$ efetiva reduzida até $5\times$), redução de volumes estáticos ($V_T, VRI, VRE, CPT$) e queda na saturação de oxigênio ($SpO_2$).</li>
+<li>Diagnóstico espirométrico interativo com alerta de Distúrbio Ventilatório Restritivo por Edema Pulmonar.</li>
+<li>[x] <strong>Microcirculação Sistêmica e Gênese de Anasarca / Cacifo (Godet)</strong>:</li>
+<li>Pressão hidrostática capilar sistêmica acoplada à Pressão Venosa Central: $P_{c,sist} = 0.75 \cdot PVC + 10.0\text{ mmHg}$.</li>
+<li>Hipoalbuminemia severa (&lt; 2.5 g/dL por desnutrição, cirrose ou síndrome nefrótica) colapsando $\pi_c$ (&lt; 10 mmHg) e induzindo edema periférico/anasarca.</li>
+<li>Escala clínica contínua do Sinal de Cacifo / Grau de Godet ($0$ a $4+$) com telemetria instantânea.</li>
+<li>[x] <strong>Integração na Interface do kokor心sim</strong>:</li>
+<li>Integração de sliders contínuos de Albumina Sérica ($1.0$ a $6.0\text{ g/dL}$) e Permeabilidade Capilar ($0$ a $100\%$) na sanfona de Condições Patológicas (mantendo rigorosamente a estrutura canônica de 10 sanfonas).</li>
+<li>Telemetria no HUD do Cardio Lab: Pressão Capilar Pulmonar (<code>Pcp</code>), Pressão Coloidosmótica (<code>πc</code>) e Edema Sistêmico (<code>Godet</code>).</li>
+<li>Telemetria no HUD do Pulmo Lab: Volume de Edema Pulmonar (<code>Edema</code>) e Saturação Periférica de Oxigênio (<code>SpO₂</code>).</li>
+<li>[x] <strong>Suíte de Testes Automatizados</strong>:</li>
+<li>4 testes de integração em Rust (<code>microvascular_starling.rs</code>): equilíbrio normoalbuminêmico, anasarca por hipoalbuminemia, edema cardiogênico por estenose mitral e lesão de permeabilidade (sepse/SDRA).</li>
+<li>13º teste de integração E2E Playwright validando manipulação de albumina/permeabilidade, colapso oncótico, escala de Godet e telemetria cardiorrespiratória.</li>
+</ul>
+<h3 id="fase-133-fisiologia-renal-hemodinamica-glomerular-natriurese-de-pressao-de-guyton-e-nefro-lab-med-7002-issue-2-bloco-d-concluido">Fase 13.3: Fisiologia Renal, Hemodinâmica Glomerular, Natriurese de Pressão de Guyton e Nefro Lab (MED-7002 / Issue #2 - Bloco D) ✅ CONCLUÍDO</h3>
+<ul>
+<li>[x] <strong>Autoregulação da Hemodinâmica Glomerular (Mecanismo Miogênico &amp; Feedback Tubuloglomerular)</strong>:</li>
+<li>Equilíbrio hidrostático capilar glomerular ($P_{gc}$) a partir da pressão arterial sistêmica renal ($PAM_{renal}$), controlada por estenose aterosclerótica (modelo 2-rim 1-clipe de Goldblatt) e tônus simpático aferente ($R_a$).</li>
+<li>Autoregulação eficaz de TFG ($120\text{ mL/min}$) e Fluxo Plasmático Renal ($600\text{ mL/min}$) na faixa fisiológica de 75 a 160 mmHg.</li>
+<li>Colapso pré-renal severo (oligúria/anúria) por queda da Pressão Líquida de Ultrafiltração ($NFP$) abaixo de $55\text{ mmHg}$.</li>
+<li>[x] <strong>Mecanismo Renal-Líquidos Corporais de Guyton e Balanço Hidrossalino</strong>:</li>
+<li>Curva de natriurese e diurese de pressão de Guyton: $\dot{V}<em u_basal="u,basal">u = \dot{V}</em> \cdot (1 + 0.045\Delta PAM + 0.0006\Delta PAM^2)$.</li>
+<li>Conservação de massa contínua no Volume de Líquido Extracelular: $\frac{d(VLEC)}{dt} = \kappa \cdot (\text{Ingesta} - \dot{V}_u - \text{Perdas})$.</li>
+<li>Acoplamento hemodinâmico de malha fechada sobre a Pressão Média de Enchimento Sistêmico de Guyton: $\Delta PMES = 1.5 \cdot (VLEC - 15.0)\text{ mmHg/L}$, fechando o loop de feedback a longo prazo sobre o Débito Cardíaco e Pressão Arterial.</li>
+<li>Infusão de bolus intravenoso rápido (500 mL de cristalóide) com expansão volêmica e natriurese compensatória.</li>
+<li>[x] <strong>Farmacologia Tubular e Bloqueio Neuro-Humoral</strong>:</li>
+<li>Diuréticos de alça (Furosemida): bloqueio do cotransportador NKCC2 na alça ascendente espessa de Henle, multiplicando a taxa de excreção urinária em até $5\times$.</li>
+<li>Diuréticos tiazídicos (Hidroclorotiazida): inibição do cotransportador NCC no túbulo contorcido distal, multiplicando a excreção em até $2.5\times$.</li>
+<li>Bloqueio do Sistema Renina-Angiotensina-Aldosterona (IECA / BRA): vasodilatação da arteríola eferente, redução de $P_{gc}$ e alívio de sobrecarga glomerular com diminuição da fração de filtração.</li>
+<li>[x] <strong>Criação do 3º Laboratório Especializado: <code>🫘 NEFRO LAB</code></strong>:</li>
+<li>Nova aba no cabeçalho com identidade visual em Âmbar/Ouro (<code>#f39c12</code> / <code>#fdcb6e</code>).</li>
+<li>4 novos canais de osciloscópio dedicados a 60 FPS:<ul>
+<li><strong>CH-01</strong>: <code>[ 糸球体濾過量 // TAXA DE FILTRAÇÃO GLOMERULAR (TFG x Tempo em mL/min) ]</code></li>
+<li><strong>CH-02</strong>: <code>[ 時間尿量 // DÉBITO URINÁRIO INSTANTÂNEO (DU x Tempo em mL/h) ]</code></li>
+<li><strong>CH-03</strong>: <code>[ 腎血流動態 // FLUXO PLASMÁTICO RENAL (FPR x Tempo em mL/min) ]</code></li>
+<li><strong>CH-04</strong>: <code>[ 体液平衡 // VOLUME DE LÍQUIDO EXTRACELULAR (VLEC x Tempo em Litros) ]</code></li>
+</ul>
+</li>
+<li>3 sanfonas específicas do Nefro Lab:<ul>
+<li><code>1. 糸球体動態 // Hemodinâmica &amp; Autoregulação</code> (Estenose, Tônus Aferente, Bloqueio SRAA)</li>
+<li><code>2. 尿細管薬理 // Farmacologia Tubular &amp; Diuréticos</code> (Furosemida, Tiazídico)</li>
+<li><code>3. 水塩出納 // Balanço Hidrossalino &amp; Volemia</code> (Ingesta hídrica, Botão de Bolus IV de 500 mL)</li>
+</ul>
+</li>
+<li>Telemetria de alta fidelidade no HUD (10 Hz): $TFG$, $DU$, $FPR$, $FF$, $VLEC$, $PAM_{renal}$, $Na_{exc}$.</li>
+<li>[x] <strong>Suíte de Testes Automatizados</strong>:</li>
+<li>4 testes de integração em Rust (<code>nefro_guyton_closed_loop.rs</code>): autoregulação normotensa, curva de natriurese de pressão sob hipertensão aguda, oligúria pré-renal em choque hipotensivo e expansão por bolus vs. depleção por Furosemida.</li>
+<li>
+<p>14º teste de integração E2E Playwright validando comutação para o Nefro Lab, renderização dos 4 canais, telemetria do HUD, resposta túbulo-farmacológica à Furosemida e infusão de bolus IV.</p>
+</li>
+<li>
+<p>[ ] Substituição do modelo 0D acoplado por malha bidimensional de diferenças finitas (matriz de 100x100 a 200x200 miócitos).</p>
+</li>
+<li>[ ] Difusão tecidual contínua com tensor de condutividade anisotrópica.</li>
+<li>[ ] Visualização topográfica de frentes de onda, espirais arritmogênicas (<em>rotor waves</em>), fibrilação ventricular e despolarizações fracionadas.</li>
+</ul>
+<h3 id="fase-15-modelacao-farmacologica-avancada-e-novos-protocolos-clinicos">Fase 15: Modelação Farmacológica Avançada e Novos Protocolos Clínicos</h3>
+<ul>
+<li>[ ] Implementação de novos fármacos e toxinas (ex.: digitalina, bloqueadores específicos de $I_{Kr}$, agentes parassimpaticomiméticos).</li>
+<li>[ ] Painel interativo de casos clínicos e cenários patológicos pré-configurados para auxílio diagnóstico e ensino médico.</li>
+</ul>
+<h3 id="fase-16-arquitetura-de-interface-mobile-first-e-responsividade-nativa">Fase 16: Arquitetura de Interface Mobile-First e Responsividade Nativa</h3>
+<ul>
+<li>[ ] <strong>Layout Responsivo Adaptativo para Smartphones (Modo Retrato / Mobile UI)</strong>:</li>
+<li>Divisão vertical da tela (<em>Split-Screen Mobile</em>): osciloscópio multicanal dinâmico no topo (40–45% da altura de visualização).</li>
+<li>Gaveta de controles inferior colapsável (<em>Bottom Sheet Drawer</em>) operável por gestos de deslize (<em>swipe up/down</em>).</li>
+<li>Sistema de abas horizontais de acesso rápido por domínio de controle.</li>
+<li>Otimização ergonômica de sliders, seletores e botões para zonas de alcance do polegar (<em>hit targets</em> &gt;= 48px).</li>
+</ul>
+<hr />
+<h2 id="kokorosim-v10-prototipo-legado-em-typescriptvite-concluido">🏛️ KokoroSim v1.0 (Protótipo Legado em TypeScript/Vite) ✅ CONCLUÍDO</h2>
+<ul>
+<li>Marco inicial com simulação zero-dimensional em Web Worker JavaScript, interface estática e modelos celulares iniciais (disponível online em <a href="https://kokorosim.github.io/v1/">kokorosim.github.io/v1</a>).</li>
+</ul>
+    </main>
+    <footer>
+        <p><b>kokor<span style="color: var(--neon-carmine); font-weight: 900;">心</span><span style="color: var(--neon-cyan); font-weight: bold;">sim</span></b> — Simulador Eletrofisiológico Cardíaco Celular e Hemodinâmico em Tempo Real</p>
+        <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 4px;">Desenvolvido com Rust, WebAssembly & Dioxus // Licença GPLv3</p>
+    </footer>
+    <script>
+        const toggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = navLinks.classList.toggle('open');
+                toggle.classList.toggle('open', isOpen);
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !toggle.contains(e.target)) {
+                    navLinks.classList.remove('open');
+                    toggle.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+            navLinks.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    toggle.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+    </script>
+</body>
+</html>

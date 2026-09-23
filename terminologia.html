@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Terminologia Médica em Kanji e Guia Bilíngue</title>
+    <meta name="title" content="Terminologia Médica em Kanji e Guia Bilíngue">
+    <meta name="description" content="Simulador cardíaco open source de eletrofisiologia, dromotropismo e hemodinâmica com Rust e Wasm.">
+    <meta name="theme-color" content="#ff1754">
+
+    <!-- Open Graph / Facebook / WhatsApp / Telegram / LinkedIn -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://kokorosim.github.io/">
+    <meta property="og:site_name" content="KokoroSim">
+    <meta property="og:title" content="Terminologia Médica em Kanji e Guia Bilíngue">
+    <meta property="og:description" content="Simulador cardíaco open source de eletrofisiologia, dromotropismo e hemodinâmica com Rust e Wasm.">
+    <meta property="og:image" content="https://kokorosim.github.io/assets/og_preview.png">
+    <meta property="og:image:secure_url" content="https://kokorosim.github.io/assets/og_preview.png">
+    <meta property="og:image:type" content="image/png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="KokoroSim — Simulador Cardíaco Open Source: Eletrofisiológico, Dromotrópico e Hemodinâmico">
+
+    <!-- Twitter (X) Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://kokorosim.github.io/">
+    <meta name="twitter:title" content="Terminologia Médica em Kanji e Guia Bilíngue">
+    <meta name="twitter:description" content="Simulador cardíaco open source de eletrofisiologia, dromotropismo e hemodinâmica com Rust e Wasm.">
+    <meta name="twitter:image" content="https://kokorosim.github.io/assets/og_preview.png">
+    <meta name="twitter:image:alt" content="KokoroSim — Simulador Cardíaco Open Source: Eletrofisiológico, Dromotrópico e Hemodinâmico">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']],
+                processEscapes: true
+            },
+            options: {
+                ignoreHtmlClass: 'tex2jax_ignore',
+                processHtmlClass: 'tex2jax_process'
+            }
+        };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <style>
+        :root {
+            --bg-main: #090a0f;
+            --bg-card: #10121a;
+            --border: #1c202d;
+            --border-tech: #2a3144;
+            --text-main: #e2e8f0;
+            --text-muted: #8493a8;
+            --neon-carmine: #ff1754;
+            --carmine-glow: rgba(255, 23, 84, 0.45);
+            --neon-cyan: #00f2fe;
+            --cyan-glow: rgba(0, 242, 254, 0.4);
+            --neon-amber: #ffd32a;
+            --neon-green: #05c46b;
+            --code-bg: #141724;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-main);
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.7;
+            font-size: 16px;
+            padding-bottom: 60px;
+            background-image: 
+                linear-gradient(rgba(28, 32, 45, 0.15) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(28, 32, 45, 0.15) 1px, transparent 1px);
+            background-size: 32px 32px;
+        }
+
+        nav.top-nav {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            background: rgba(9, 10, 15, 0.94);
+            backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--border-tech);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 24px;
+            max-width: 100%;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'Chakra Petch', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            text-decoration: none;
+            letter-spacing: 0.05em;
+            white-space: nowrap;
+            flex-shrink: 0;
+            min-width: max-content;
+        }
+
+        .brand-logo {
+            width: 28px;
+            height: 28px;
+            min-width: 28px;
+            min-height: 28px;
+            flex-shrink: 0;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px var(--carmine-glow));
+        }
+
+        .brand-kanji {
+            color: var(--neon-carmine);
+            text-shadow: 0 0 10px var(--carmine-glow);
+            font-weight: 900;
+            margin: 0 1px;
+        }
+
+        .brand-sim {
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px var(--cyan-glow);
+            font-weight: 700;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+            flex-wrap: wrap;
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        .nav-links a {
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.92rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            padding: 6px 12px;
+            border: 1px solid transparent;
+            clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: #ffffff;
+            border-color: var(--neon-cyan);
+            background: rgba(0, 242, 254, 0.12);
+            box-shadow: 0 0 12px var(--cyan-glow);
+            text-shadow: 0 0 6px var(--cyan-glow);
+        }
+
+        .nav-links a.btn-app {
+            background: linear-gradient(135deg, var(--neon-carmine), #d61346);
+            color: #ffffff;
+            font-weight: 700;
+            padding: 7px 18px;
+            border: 1px solid #ff4d79;
+            box-shadow: 0 0 15px var(--carmine-glow);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .nav-links a.btn-app:hover {
+            background: linear-gradient(135deg, #ff4375, var(--neon-carmine));
+            box-shadow: 0 0 24px var(--neon-carmine);
+            transform: translateY(-1px);
+        }
+
+        main.doc-container {
+            max-width: 960px;
+            margin: 36px auto;
+            padding: 0 24px;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Chakra Petch', sans-serif;
+            color: #ffffff;
+            font-weight: 700;
+            margin-top: 1.8em;
+            margin-bottom: 0.6em;
+            letter-spacing: 0.02em;
+        }
+
+        h1 {
+            font-size: 2.3rem;
+            border-bottom: 2px solid var(--border-tech);
+            padding-bottom: 12px;
+            margin-top: 0.5em;
+            color: #ffffff;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+            position: relative;
+        }
+
+        h1::after {
+            content: "";
+            position: absolute;
+            bottom: -2px;
+            left: 0;
+            width: 80px;
+            height: 2px;
+            background: var(--neon-carmine);
+            box-shadow: 0 0 8px var(--neon-carmine);
+        }
+
+        h1[align="center"] {
+            border-bottom: none;
+            padding-bottom: 0;
+            text-shadow: 0 0 20px rgba(0, 242, 254, 0.3);
+        }
+
+        h1[align="center"]::after {
+            display: none;
+        }
+
+        h2 {
+            font-size: 1.55rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 8px;
+            color: var(--neon-cyan);
+            text-shadow: 0 0 8px rgba(0, 242, 254, 0.25);
+        }
+
+        h3 {
+            font-size: 1.25rem;
+            color: var(--neon-amber);
+        }
+
+        h2 a[href="#indice"], h3 a[href="#indice"] {
+            font-size: 0.8em;
+            color: var(--text-muted);
+            border-bottom: none;
+            margin-left: 8px;
+            opacity: 0.55;
+            transition: all 0.2s ease;
+            text-decoration: none;
+        }
+
+        h2 a[href="#indice"]:hover, h3 a[href="#indice"]:hover {
+            color: var(--neon-cyan);
+            opacity: 1;
+            text-shadow: 0 0 8px var(--cyan-glow);
+        }
+
+        p {
+            margin-bottom: 1.1em;
+            color: var(--text-main);
+        }
+
+        a {
+            color: var(--neon-cyan);
+            text-decoration: none;
+            transition: 0.2s;
+            border-bottom: 1px dotted rgba(0, 242, 254, 0.4);
+        }
+
+        a:hover {
+            color: #80fbff;
+            text-shadow: 0 0 8px var(--cyan-glow);
+            border-bottom-color: var(--neon-cyan);
+        }
+
+        ul, ol {
+            margin-bottom: 1.2em;
+            padding-left: 28px;
+        }
+
+        li {
+            margin-bottom: 0.4em;
+        }
+
+        hr {
+            border: none;
+            border-top: 1px solid var(--border-tech);
+            margin: 2.2em 0;
+            position: relative;
+        }
+
+        pre {
+            background: var(--code-bg);
+            border: 1px solid var(--border-tech);
+            border-left: 3px solid var(--neon-cyan);
+            border-radius: 4px;
+            padding: 16px;
+            overflow-x: auto;
+            margin-bottom: 1.4em;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.88rem;
+            box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.5);
+        }
+
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9em;
+            background: rgba(255, 255, 255, 0.08);
+            padding: 2px 6px;
+            border-radius: 3px;
+            color: #ffd32a;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        pre code {
+            background: none;
+            border: none;
+            padding: 0;
+            color: inherit;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.8em 0;
+            background: var(--bg-card);
+            border-radius: 4px;
+            overflow: hidden;
+            border: 1px solid var(--border-tech);
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+        }
+
+        th, td {
+            padding: 11px 16px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.92rem;
+        }
+
+        th {
+            font-family: 'Chakra Petch', sans-serif;
+            background: rgba(28, 32, 45, 0.6);
+            color: var(--neon-cyan);
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+        }
+
+        tr:hover {
+            background: rgba(0, 242, 254, 0.03);
+        }
+
+        blockquote {
+            border-left: 3px solid var(--neon-carmine);
+            background: rgba(255, 23, 84, 0.06);
+            padding: 14px 18px;
+            margin: 1.4em 0;
+            border-radius: 0 4px 4px 0;
+            color: var(--text-main);
+            box-shadow: inset 0 0 12px rgba(255, 23, 84, 0.04);
+        }
+
+        footer {
+            max-width: 960px;
+            margin: 60px auto 0 auto;
+            padding: 24px 20px 0 20px;
+            border-top: 1px solid var(--border-tech);
+            text-align: center;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-family: 'Chakra Petch', sans-serif;
+        }
+
+        footer p {
+            margin-bottom: 6px;
+        }
+
+        .nav-toggle {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid var(--border-tech);
+            border-radius: 4px;
+            width: 40px;
+            height: 40px;
+            cursor: pointer;
+            padding: 0;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            gap: 5px;
+            transition: all 0.25s ease;
+            z-index: 102;
+            flex-shrink: 0;
+        }
+
+        .nav-toggle:hover {
+            border-color: var(--neon-cyan);
+            background: rgba(0, 242, 254, 0.1);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        .hamburger-bar {
+            width: 22px;
+            height: 2px;
+            background: var(--neon-cyan);
+            transition: all 0.25s ease-in-out;
+            box-shadow: 0 0 4px var(--cyan-glow);
+            border-radius: 1px;
+            display: block;
+        }
+
+        .nav-toggle.open .hamburger-bar:nth-child(1) {
+            transform: translateY(7px) rotate(45deg);
+        }
+
+        .nav-toggle.open .hamburger-bar:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .nav-toggle.open .hamburger-bar:nth-child(3) {
+            transform: translateY(-7px) rotate(-45deg);
+        }
+
+        @media (max-width: 1024px) {
+            .nav-toggle {
+                display: flex;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                right: 0;
+                background: rgba(9, 11, 18, 0.98);
+                backdrop-filter: blur(20px);
+                -webkit-backdrop-filter: blur(20px);
+                border-bottom: 2px solid var(--border-tech);
+                box-shadow: 0 16px 32px rgba(0, 0, 0, 0.85);
+                padding: 16px 24px 24px 24px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                max-height: calc(100vh - 65px);
+                overflow-y: auto;
+                z-index: 101;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
+
+            .nav-links a {
+                padding: 12px 16px;
+                font-size: 1rem;
+                clip-path: none;
+                border-radius: 4px;
+                background: rgba(255, 255, 255, 0.03);
+                border: 1px solid rgba(255, 255, 255, 0.05);
+            }
+
+            .nav-links a.btn-app {
+                clip-path: none;
+                border-radius: 4px;
+                margin-bottom: 4px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            body {
+                font-size: 15px;
+            }
+            h1 {
+                font-size: 1.8rem;
+            }
+            .top-nav {
+                padding: 10px 16px;
+            }
+            .brand {
+                font-size: 1.15rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="top-nav">
+        <a href="./index.html" class="brand">
+            <img src="assets/icon.png" alt="KokoroSim" class="brand-logo">
+            <span>kokor<span class="brand-kanji">心</span><span class="brand-sim">sim</span></span>
+        </a>
+        <button class="nav-toggle" id="navToggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+            <span class="hamburger-bar"></span>
+        </button>
+        <div class="nav-links" id="navLinks">
+            <a href="./app.html" class="btn-app">🚀 Simulador Web</a>
+            <a href="./index.html" class="">📖 Sobre</a>
+            <a href="./roteiro.html" class="">🎓 Roteiro Prático</a>
+            <a href="https://github.com/KokoroSim/KokoroSim" target="_blank">💻 GitHub</a>
+        </div>
+    </nav>
+    <main class="doc-container">
+        <h1 id="terminologia-medica-em-kanji-e-guia-bilingue-da-interface">🈯 Terminologia Médica em Kanji e Guia Bilíngue da Interface</h1>
+<p align="center">
+  <img src="assets/logo.png" width="200" alt="Logotipo KokoroSim">
+</p>
+
+<h1 align="center" style="font-size: 2.3rem; letter-spacing: 2px;">
+  生体医学用語 // Terminologia Médica & Biofísica
+</h1>
+
+<p align="center" style="font-size: 1.15rem; color: #a4b0be; font-weight: 500;">
+  Auditoria Filológica, Origem Clínica e Correspondência Exata entre Kanji e Português no KokoroSim
+</p>
+
+<hr />
+<h2 id="1-contexto-cultural-e-principios-do-bilinguismo">🧭 1. Contexto Cultural e Princípios do Bilinguismo</h2>
+<p>A interface do <strong>KokoroSim</strong> adota uma identidade visual inspirada nos consoles de telemetria e instrumentação analógica de laboratórios japoneses da década de 1980 e 1990 (notadamente a estética clássica de eletrocardiógrafos de hospitais universitários, monitores médicos da <em>Nihon Kohden</em> e a cibernética de obras consagradas como <em>Akira</em>, de Katsuhiro Otomo).</p>
+<p>Longe de utilizar tipografia decorativa vazia ou traduções literais geradas por inteligência artificial, <strong>todas as inscrições em caracteres japoneses (Kanji e Katakana) presentes no cockpit correspondem rigorosamente ao vocabulário médico, fisiológico e biofísico padrão utilizado no Japão</strong>. </p>
+<p>Ao lado de cada termo em japonês, o simulador apresenta a tradução ou sigla direta em <strong>Português Brasileiro</strong>, garantindo clareza operacional imediata e acessibilidade cognitiva sem prejuízo à experiência imersiva.</p>
+<hr />
+<h2 id="2-tabela-geral-de-correspondencia-e-auditoria-filologica">📊 2. Tabela Geral de Correspondência e Auditoria Filológica</h2>
+<p>A tabela a seguir discrimina cada termo presente no simulador, sua transcrição fonética (<em>Hepburn Rōmaji</em>), a morfologia caractere por caractere e a correlação médica com o texto em português.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: left;">Localização na Interface</th>
+<th style="text-align: left;">Texto em Japonês</th>
+<th style="text-align: left;">Transcrição (Rōmaji)</th>
+<th style="text-align: left;">Decomposição Morfológica</th>
+<th style="text-align: left;">Significado Médico no Japão</th>
+<th style="text-align: left;">Texto no Simulador (PT)</th>
+<th style="text-align: left;">Grau de Correspondência</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: left;"><strong>Identidade / Marca</strong></td>
+<td style="text-align: left;"><strong>心</strong></td>
+<td style="text-align: left;"><em>kokoro</em> / <em>shin</em></td>
+<td style="text-align: left;"><code>心</code> (coração, mente, centro vital)</td>
+<td style="text-align: left;">Coração / Centro intrínseco</td>
+<td style="text-align: left;"><code>kokor心sim</code></td>
+<td style="text-align: left;"><strong>Identidade Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HUD Superior</strong></td>
+<td style="text-align: left;"><strong>心拍数</strong></td>
+<td style="text-align: left;"><em>shinpakusū</em></td>
+<td style="text-align: left;"><code>心</code> (coração) + <code>拍</code> (batimento/pulso) + <code>数</code> (contagem/número)</td>
+<td style="text-align: left;">Frequência Cardíaca (BPM)</td>
+<td style="text-align: left;"><code>FC:</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HUD Superior</strong></td>
+<td style="text-align: left;"><strong>PR間隔</strong></td>
+<td style="text-align: left;"><em>PR kankaku</em></td>
+<td style="text-align: left;"><code>PR</code> + <code>間</code> (espaço) + <code>隔</code> (intervalo)</td>
+<td style="text-align: left;">Intervalo PR (condução atrioventricular)</td>
+<td style="text-align: left;"><code>PR:</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HUD Superior</strong></td>
+<td style="text-align: left;"><strong>QRS幅</strong></td>
+<td style="text-align: left;"><em>QRS haba</em></td>
+<td style="text-align: left;"><code>QRS</code> + <code>幅</code> (largura/amplitude horizontal)</td>
+<td style="text-align: left;">Duração ou largura do complexo QRS</td>
+<td style="text-align: left;"><code>QRS:</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HUD Superior</strong></td>
+<td style="text-align: left;"><strong>QT間隔</strong></td>
+<td style="text-align: left;"><em>QT kankaku</em></td>
+<td style="text-align: left;"><code>QT</code> + <code>間</code> (espaço) + <code>隔</code> (intervalo)</td>
+<td style="text-align: left;">Intervalo QT (sístole elétrica ventricular)</td>
+<td style="text-align: left;"><code>QT:</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>HUD Superior</strong></td>
+<td style="text-align: left;"><strong>静止電位</strong></td>
+<td style="text-align: left;"><em>seishi den'i</em></td>
+<td style="text-align: left;"><code>静止</code> (repouso/quietude) + <code>電位</code> (potencial elétrico)</td>
+<td style="text-align: left;">Potencial de Repouso de Membrana ($V_{rest}$)</td>
+<td style="text-align: left;"><code>V.Rep:</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sanfona 0</strong></td>
+<td style="text-align: left;"><strong>画面表示</strong></td>
+<td style="text-align: left;"><em>gamen hyōji</em></td>
+<td style="text-align: left;"><code>画面</code> (tela/display) + <code>表示</code> (exibição/apresentação)</td>
+<td style="text-align: left;">Exibição da Tela / Visualização</td>
+<td style="text-align: left;"><code>0. Visualização</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sanfona 1</strong></td>
+<td style="text-align: left;"><strong>電解質</strong></td>
+<td style="text-align: left;"><em>denkaishitsu</em></td>
+<td style="text-align: left;"><code>電解</code> (eletrólise) + <code>質</code> (matéria/substância)</td>
+<td style="text-align: left;">Eletrólitos / Substâncias Eletrolíticas</td>
+<td style="text-align: left;"><code>1. Íons e Eletrólitos</code></td>
+<td style="text-align: left;"><strong>Praticamente Exata</strong> <em>(agrega "Íons")</em></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sanfona 2</strong></td>
+<td style="text-align: left;"><strong>自律神経</strong></td>
+<td style="text-align: left;"><em>jiritsu shinkei</em></td>
+<td style="text-align: left;"><code>自律</code> (autônomo) + <code>神経</code> (nervo/sistema nervoso)</td>
+<td style="text-align: left;">Sistema Nervoso Autônomo</td>
+<td style="text-align: left;"><code>2. Sistema Nervoso Autônomo</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sanfona 3</strong></td>
+<td style="text-align: left;"><strong>抗不整脈薬</strong></td>
+<td style="text-align: left;"><em>kō-fuseimyaku-yaku</em></td>
+<td style="text-align: left;"><code>抗</code> (anti) + <code>不整脈</code> (arritmia) + <code>薬</code> (fármaco/remédio)</td>
+<td style="text-align: left;">Medicamentos Antiarrítmicos</td>
+<td style="text-align: left;"><code>3. Fármacos Antiarrítmicos</code></td>
+<td style="text-align: left;"><strong>Exata e Rigorosa</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sanfona 4</strong></td>
+<td style="text-align: left;"><strong>病態生理</strong></td>
+<td style="text-align: left;"><em>byōtai seiri</em></td>
+<td style="text-align: left;"><code>病態</code> (estado patológico) + <code>生理</code> (fisiologia)</td>
+<td style="text-align: left;">Fisiopatologia (<em>Pathophysiology</em>)</td>
+<td style="text-align: left;"><code>4. Condições Patológicas</code></td>
+<td style="text-align: left;"><strong>Equivalência Funcional</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Sanfona 5</strong></td>
+<td style="text-align: left;"><strong>生体音響</strong></td>
+<td style="text-align: left;"><em>seitai onkyō</em></td>
+<td style="text-align: left;"><code>生体</code> (organismo vivo) + <code>音響</code> (acústica/som)</td>
+<td style="text-align: left;">Bioacústica / Sons Biológicos</td>
+<td style="text-align: left;"><code>5. Monitorização &amp; Áudio</code></td>
+<td style="text-align: left;"><strong>Equivalência Contextual</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Canal CH-01</strong></td>
+<td style="text-align: left;"><strong>活動電位</strong></td>
+<td style="text-align: left;"><em>katsudō den'i</em></td>
+<td style="text-align: left;"><code>活動</code> (atividade/ação) + <code>電位</code> (potencial elétrico)</td>
+<td style="text-align: left;">Potencial de Ação Celular</td>
+<td style="text-align: left;"><code>POTENCIAIS DE AÇÃO CELULAR</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Canal CH-02</strong></td>
+<td style="text-align: left;"><strong>心電図</strong></td>
+<td style="text-align: left;"><em>shindenzu</em></td>
+<td style="text-align: left;"><code>心</code> (coração) + <code>電</code> (eletricidade) + <code>図</code> (diagrama/traçado)</td>
+<td style="text-align: left;">Eletrocardiograma (ECG)</td>
+<td style="text-align: left;"><code>ECG DERIVAÇÃO II</code></td>
+<td style="text-align: left;"><strong>Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Canal CH-03</strong></td>
+<td style="text-align: left;"><strong>カルシウム動態</strong></td>
+<td style="text-align: left;"><em>karushiumu dōtai</em></td>
+<td style="text-align: left;"><code>カルシウム</code> (Cálcio) + <code>動態</code> (dinâmica/cinética)</td>
+<td style="text-align: left;">Dinâmica / Cinética de Cálcio</td>
+<td style="text-align: left;"><code>TRANSIENTE DE CÁLCIO (Ca²⁺)</code></td>
+<td style="text-align: left;"><strong>Praticamente Exata</strong></td>
+</tr>
+<tr>
+<td style="text-align: left;"><strong>Canal CH-04</strong></td>
+<td style="text-align: left;"><strong>左室圧迫曲線</strong></td>
+<td style="text-align: left;"><em>sashitsu appaku kyokusen</em></td>
+<td style="text-align: left;"><code>左室</code> (Ventrículo Esquerdo) + <code>圧迫</code> (pressão) + <code>曲線</code> (curva)</td>
+<td style="text-align: left;">Curva de Pressão do Ventrículo Esquerdo</td>
+<td style="text-align: left;"><code>HEMODINÂMICA: LVP &amp; AoP</code></td>
+<td style="text-align: left;"><strong>Equivalência Fisiológica</strong></td>
+</tr>
+</tbody>
+</table>
+<hr />
+<h2 id="3-detalhamento-tecnico-e-origem-clinica-por-modulo">🔬 3. Detalhamento Técnico e Origem Clínica por Módulo</h2>
+<h3 id="31-a-marca-kokorsim">3.1. A Marca: <code>kokor心sim</code></h3>
+<ul>
+<li><strong>Kanji:</strong> <code>心</code></li>
+<li><strong>Leituras:</strong> <em>Kun'yomi:</em> こころ (<em>kokoro</em>) // <em>On'yomi:</em> しん (<em>shin</em>)</li>
+<li><strong>Significado Médico e Filosófico:</strong> Na tradição clássica, <code>心</code> abrange tanto o coração físico anatômico (<em>shinzō</em> - 心臓) quanto a sede das funções vitais, ritmo e sentimentos. No logotipo do KokoroSim, o kanji substitui a terminação fonética <code>"o"</code> de <code>"kokoro"</code>, unificando a raiz japonesa ao sufixo ocidental <code>"sim"</code> (simulador).</li>
+</ul>
+<hr />
+<h3 id="32-telemetria-do-hud-superior-monitores-de-uti">3.2. Telemetria do HUD Superior (Monitores de UTI)</h3>
+<p>Os parâmetros eletrofisiológicos exibidos no cabeçalho superior sintetizam em tempo real o eletrocardiograma e a estabilidade celular:</p>
+<ol>
+<li><strong><code>心拍数 // FC:</code> (Frequência Cardíaca)</strong></li>
+<li>Composto por <code>心</code> (coração), <code>拍</code> (pulso, batida) e <code>数</code> (contagem numérica). É o termo universal no Japão para medir os batimentos por minuto (<em>Heart Rate</em>), exibido ao lado da sigla consagrada em português <strong>FC</strong> (Frequência Cardíaca).</li>
+<li><strong><code>PR間隔 // PR:</code> (Intervalo PR)</strong></li>
+<li>A palavra <code>間隔</code> (<em>kankaku</em>) significa tecnicamente "intervalo temporal" ou "espaçamento". Mede a velocidade de condução do impulso elétrico desde o Nó Sinoatrial até as fibras de Purkinje, passando pelo atraso protetor do Nó AV.</li>
+<li><strong><code>QRS幅 // QRS:</code> (Largura do Complexo QRS)</strong></li>
+<li><code>幅</code> (<em>haba</em>) significa "largura" ou "amplitude transversal". Em eletrocardiografia, refere-se ao tempo de ativação e despolarização ventricular rápida em milissegundos ($ms$). Um QRS largo alerta para atrasos de condução intraventricular ou bloqueios de ramo.</li>
+<li><strong><code>QT間隔 // QT:</code> (Intervalo QT)</strong></li>
+<li>Representa a sístole elétrica ventricular completa (despolarização + repolarização). A alteração desse intervalo reflete diretamente a dinâmica de cálcio e potássio.</li>
+<li><strong><code>静止電位 // V.Rep:</code> (Potencial de Repouso)</strong></li>
+<li>Formado por <code>静止</code> (<em>seishi</em>, repouso estático ou quiescência) e <code>電位</code> (<em>den'i</em>, potencial elétrico / voltagem). Expressa o potencial transmembrana celular na Fase 4 (em torno de $-84\text{ mV}$ nos miócitos ventriculares), indicado abreviadamente como <strong>V.Rep</strong> em português.</li>
+</ol>
+<hr />
+<h3 id="33-painel-lateral-de-controle-sanfonas-accordions">3.3. Painel Lateral de Controle (Sanfonas / Accordions)</h3>
+<p>Cada módulo do rack expansível agrupa variáveis sob rigorosa taxonomia biomédica:</p>
+<h4 id="0-visualizacao">0. <code>画面表示 // Visualização</code></h4>
+<ul>
+<li><strong>Morfologia:</strong> <code>画</code> (quadro/imagem) + <code>面</code> (superfície/tela) + <code>表</code> (superfície externa) + <code>示</code> (indicar/mostrar).</li>
+<li><strong>Fundamento:</strong> Termo padrão de eletrônica e engenharia de software no Japão para telas e opções de exibição gráfica. Controla os modos de varredura do osciloscópio (rolling, sweep, triggered) e as camadas celulares ativas.</li>
+</ul>
+<h4 id="1-ions-e-eletrolitos">1. <code>電解質 // Íons e Eletrólitos</code></h4>
+<ul>
+<li><strong>Morfologia:</strong> <code>電</code> (eletricidade) + <code>解</code> (dissolver/quebrar) + <code>質</code> (essência/substância).</li>
+<li><strong>Fundamento:</strong> Termo técnico para eletrólitos dissolvidos no meio aquoso extracelular. O texto em português complementa com <em>"Íons e Eletrólitos"</em>, permitindo a manipulação das concentrações milimolares de $[K^+]_o$, $[Ca^{2+}]_o$ e $[Na^+]_o$.</li>
+</ul>
+<h4 id="2-sistema-nervoso-autonomo">2. <code>自律神経 // Sistema Nervoso Autônomo</code></h4>
+<ul>
+<li><strong>Morfologia:</strong> <code>自</code> (próprio) + <code>律</code> (lei/regra/controle) + <code>神</code> (mente/espírito) + <code>経</code> (trilho/meridiano/nervo).</li>
+<li><strong>Fundamento:</strong> Representa o ramo eferente involuntário que modula a frequência cardíaca (cronotropismo), a condução nodal (dromotropismo) e o inotropismo ventricular através de receptores $\beta_1$-adrenérgicos (simpático) e $M_2$-muscarínicos (parassimpático/vagal).</li>
+</ul>
+<h4 id="3-farmacos-antiarritmicos">3. <code>抗不整脈薬 // Fármacos Antiarrítmicos</code></h4>
+<ul>
+<li><strong>Morfologia:</strong> <code>抗</code> (antagonista/anti) + <code>不</code> (não) + <code>整</code> (regular/ordenado) + <code>脈</code> (pulso) + <code>薬</code> (medicamento/droga).</li>
+<li><strong>Fundamento:</strong> Uma das traduções mais precisas e elegantes do japonês médico: <code>不整脈</code> (<em>fuseimyaku</em>) significa literalmente "pulso irregular" (arritmia), e <code>抗...薬</code> indica classe medicamentosa antagonista. O módulo permite testar bloqueadores de sódio (Lidocaína - Classe I), potássio (Amiodarona - Classe III), cálcio (Verapamil - Classe IV) e inibidores da bomba $Na^+/K^+$ (Digoxina).</li>
+</ul>
+<h4 id="4-condicoes-patologicas">4. <code>病態生理 // Condições Patológicas</code></h4>
+<ul>
+<li><strong>Morfologia:</strong> <code>病</code> (doença) + <code>態</code> (estado/condição) + <code>生</code> (vida) + <code>理</code> (lógica/princípio).</li>
+<li><strong>Fundamento:</strong> Em japonês, <code>病態生理</code> é o termo acadêmico exato para <strong>Fisiopatologia</strong> (<em>Pathophysiology</em>). Em português, foi optado pelo rótulo operacional <em>"Condições Patológicas"</em> para facilitar a compreensão imediata das intervenções disponíveis (nível de isquemia tecidual e porcentagem de fibrose miocárdica).</li>
+</ul>
+<h4 id="5-monitorizacao-audio">5. <code>生体音響 // Monitorização &amp; Áudio</code></h4>
+<ul>
+<li><strong>Morfologia:</strong> <code>生体</code> (organismo vivo/corpo biológico) + <code>音響</code> (acústica/ondas sonoras).</li>
+<li><strong>Fundamento:</strong> Refere-se à <strong>Bioacústica</strong>. No simulador, o texto em português contextualiza a finalidade prática: <em>"Monitorização &amp; Áudio"</em>, englobando a fonocardiografia das bulhas B1/B2 geradas pelo fechamento valvar mecânico e o tom sonoro dos monitores multiparamétricos de UTI disparados pela detecção da onda R.</li>
+</ul>
+<hr />
+<h3 id="34-canais-de-osciloscopio-display-crt-fosforico">3.4. Canais de Osciloscópio (Display CRT Fosfórico)</h3>
+<p>Os 4 canais de plotagem contínua utilizam a nomenclatura dos instrumentos laboratoriais:</p>
+<ul>
+<li><strong><code>CH-01 [ 活動電位 // POTENCIAIS DE AÇÃO CELULAR ]</code></strong></li>
+<li><code>活動電位</code> (<em>katsudō den'i</em>): Combinação de <code>活動</code> (atividade motora/funcional) e <code>電位</code> (voltagem elétrica). É a designação universal na neurociência e na cardiologia para o Potencial de Ação biológico transmembrana.</li>
+<li><strong><code>CH-02 [ 心電図 // ECG DERIVAÇÃO II ]</code></strong></li>
+<li><code>心電図</code> (<em>shindenzu</em>): O traçado elétrico do coração gerado pelo dipolo transmural resultante dos miócitos endocárdicos, mediomurais (células M) e epicárdicos.</li>
+<li><strong><code>CH-03 [ カルシウム動態 // TRANSIENTE DE CÁLCIO (Ca²⁺) ]</code></strong></li>
+<li><code>カルシウム</code> (<em>karushiumu</em>, cálcio em alfabeto fonético Katakana) + <code>動態</code> (<em>dōtai</em>, cinética, dinâmica, trânsito). Expressa o influxo citoplasmático e a recaptação sarcoplasmática de íons $Ca^{2+}$, mecanismo central do acoplamento excitação-contração.</li>
+<li><strong><code>CH-04 [ 左室圧迫曲線 // HEMODINÂMICA: LVP &amp; AoP ]</code></strong></li>
+<li><code>左室</code> (<em>sashitsu</em>, Ventrículo Esquerdo) + <code>圧迫</code> (<em>appaku</em>, pressão compressiva) + <code>曲線</code> (<em>kyokusen</em>, curva geométrica). Refere-se especificamente à curva de pressão gerada pela contração isovolumétrica e ejeção ventricular esquerda, visualizada em conjunto com a pressão arterial aórtica no diagrama clássico de Wiggers.</li>
+</ul>
+<hr />
+<h2 id="4-garantia-de-conformidade-e-acessibilidade">💡 4. Garantia de Conformidade e Acessibilidade</h2>
+<ol>
+<li><strong>Zero Efeito Ruído:</strong> A inclusão dos caracteres asiáticos foi submetida a revisão lexicográfica rigorosa para assegurar que nenhum termo apresente sentido pejorativo, tradução semântica distorcida ou grafia vulgar.</li>
+<li><strong>Dupla Indicação (Bilingual Shield):</strong> Em todos os componentes interativos onde a leitura rápida é essencial para o raciocínio médico ou farmacológico, os símbolos em português ou as unidades do Sistema Internacional ($mEq/L$, $mmol/L$, $ms$, $mV$, $BPM$) possuem destaque visual e tipografia de alto contraste.</li>
+<li><strong>Padrão Gráfico Aberto:</strong> Este vocabulário serve como referência para professores e alunos interessados na integração entre informática biomédica, design de interfaces de alta densidade informativa e história da instrumentação cirúrgica internacional.</li>
+</ol>
+    </main>
+    <footer>
+        <p><b>kokor<span style="color: var(--neon-carmine); font-weight: 900;">心</span><span style="color: var(--neon-cyan); font-weight: bold;">sim</span></b> — Simulador Eletrofisiológico Cardíaco Celular e Hemodinâmico em Tempo Real</p>
+        <p style="font-size: 0.85rem; color: #7f8c8d; margin-top: 4px;">Desenvolvido com Rust, WebAssembly & Dioxus // Licença GPLv3</p>
+    </footer>
+    <script>
+        const toggle = document.getElementById('navToggle');
+        const navLinks = document.getElementById('navLinks');
+        if (toggle && navLinks) {
+            toggle.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isOpen = navLinks.classList.toggle('open');
+                toggle.classList.toggle('open', isOpen);
+                toggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+            });
+            document.addEventListener('click', (e) => {
+                if (!navLinks.contains(e.target) && !toggle.contains(e.target)) {
+                    navLinks.classList.remove('open');
+                    toggle.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+            navLinks.querySelectorAll('a').forEach(a => {
+                a.addEventListener('click', () => {
+                    navLinks.classList.remove('open');
+                    toggle.classList.remove('open');
+                    toggle.setAttribute('aria-expanded', 'false');
+                });
+            });
+        }
+    </script>
+</body>
+</html>
